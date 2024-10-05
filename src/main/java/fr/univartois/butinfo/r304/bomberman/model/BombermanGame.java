@@ -169,7 +169,7 @@ public final class BombermanGame {
      */
     private GameMap createMap() {
         // TODO Utilisez le générateur de cartes que vous avez écrit pour créer une carte.
-        gameMap = GameMapGenerator.generateMap(width, height);
+        gameMap = GameMapGenerator.generateMap(width/spriteStore.getSpriteSize(), height/spriteStore.getSpriteSize());
         return gameMap;
     }
 
