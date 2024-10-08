@@ -17,6 +17,22 @@ dans le développement de votre projet.
 
 - [Lancement du projet](https://gitlab.univ-artois.fr/enseignements-rwa/modules/but-2/r3-04/tp/-/tree/main/TP03)
 
+## Fonctionnement des Commit, merge request et branches
+
+Utilisation d'un vocabulaire simple selon l'action réalisée pour les commit.
+
+Exemple: 
+        > Ajout de la méthode XXX
+        > Correction d'un bug dans la classe XXX
+        > Suppression de la méthode XXX
+
+Les merge request restent aussi simple la branche de base est envoyée vers la branche DEV.
+
+Exemple: 
+        > Explosion -> DEV
+
+Le nom des branches correspond à la fonctionnalité réalisée.
+
 ## Diagramme de classes
 
 ```plantuml
@@ -279,3 +295,20 @@ class Sprite {
 | Représentation des bombes et explosion     |            |                                               |
 | Intégration des bombes dans la partie      |            |                                               |
 | Création de la carte du jeu                |            |                                               |
+
+### TP n°4
+
+### TP n°4
+
+| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)       |
+| ------------------------------------------- | ---------------------------- | ---------- | --------------- |
+| Variantes de déplacement des ennemis        |                              |            |                 |
+| Gestion des points de vie (ennemis, joueur) |                              |            |                 |
+| Invulnérabilité du joueur                   |                              |            |                 |
+| Solidité des murs                           |                              |            |                 |
+| Variantes de génération pour la carte       |                              |            |                 |
+| Différents types de bombes                  |                              |            |                 |
+
+
+
+
