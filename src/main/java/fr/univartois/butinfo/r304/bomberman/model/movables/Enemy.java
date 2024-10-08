@@ -31,12 +31,17 @@ public class Enemy extends AbstractMovable{
 
   @Override
   public void collidedWith(IMovable other) {
+    if (other instanceof Bomb) {
+      other.explode();
+    }
+    else if (other instanceof Enemy) {
 
+    }
   }
 
   @Override
   public void explode() {
-
+    game.enemyIsDead(this);
   }
 
   @Override
@@ -52,5 +57,8 @@ public class Enemy extends AbstractMovable{
 
     return super.move(delta);
   }
+
+
+
 
 }
