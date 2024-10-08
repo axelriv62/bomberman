@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -199,8 +200,8 @@ public final class BombermanGame {
 
         // On crée ensuite les ennemis sur la carte.
         for (int i = 0; i < nbEnemies; i++) {
-            // TODO Créez un ennemi en utilisant votre implémentation.
-            IMovable enemy = null;
+            Sprite sprite = spriteStore.getSprite("goblin.png");
+            Enemy enemy = new Enemy(this, 0, 0, sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
             spawnMovable(enemy);

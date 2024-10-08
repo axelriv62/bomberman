@@ -16,7 +16,7 @@ public class Enemy extends AbstractMovable{
    * @param yPosition La position en y initiale de l'objet.
    * @param sprite    L'instance de {@link Sprite} représentant l'objet.
    */
-  protected Enemy(BombermanGame game, double xPosition,
+  public Enemy(BombermanGame game, double xPosition,
       double yPosition, Sprite sprite) {
     super(game, xPosition, yPosition, sprite);
   }
