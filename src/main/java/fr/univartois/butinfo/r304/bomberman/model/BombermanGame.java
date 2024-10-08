@@ -23,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.GameMapGenerator;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
@@ -169,7 +170,8 @@ public final class BombermanGame {
      */
     private GameMap createMap() {
         // TODO Utilisez le générateur de cartes que vous avez écrit pour créer une carte.
-        return null;
+        gameMap = GameMapGenerator.generateMap(width/spriteStore.getSpriteSize(), height/spriteStore.getSpriteSize());
+        return gameMap;
     }
 
     /**
