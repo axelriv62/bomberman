@@ -23,9 +23,11 @@ Utilisation d'un vocabulaire simple selon l'action réalisée pour les commit.
 
 Exemple: 
         
-> Ajout de la méthode XXX
-> Correction d'un bug dans la classe XXX
-> Suppression de la méthode XXX
+> - Ajout de la méthode XXX
+> - Correction d'un bug dans la classe XXX
+> - Suppression de la méthode XXX
+
+
 
 
 Les merge request restent aussi simple la branche de base est envoyée vers la branche DEV.
