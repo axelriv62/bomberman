@@ -167,11 +167,13 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public void explode() {
+        //TODO
         // Implémentez la logique d'explosion
     }
 
     @Override
     public void hitEnemy() {
+        //TODO
         // Implémentez la logique de collision avec un ennemi
     }
 
