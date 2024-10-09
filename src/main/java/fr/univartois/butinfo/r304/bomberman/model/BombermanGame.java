@@ -16,12 +16,14 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import fr.univartois.butinfo.r304.bomberman.model.map.GameMapGenerator;
 import fr.univartois.butinfo.r304.bomberman.view.ISpriteStore;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.animation.AnimationTimer;
@@ -168,7 +170,8 @@ public final class BombermanGame {
      */
     private GameMap createMap() {
         // TODO Utilisez le générateur de cartes que vous avez écrit pour créer une carte.
-        return null;
+        gameMap = GameMapGenerator.generateMap(width/spriteStore.getSpriteSize(), height/spriteStore.getSpriteSize());
+        return gameMap;
     }
 
     /**
@@ -198,9 +201,16 @@ public final class BombermanGame {
         }
 
         // On crée ensuite les ennemis sur la carte.
+        List<Cell> emptyCells = gameMap.getEmptyCells();
         for (int i = 0; i < nbEnemies; i++) {
-            // TODO Créez un ennemi en utilisant votre implémentation.
-            IMovable enemy = null;
+            if (emptyCells.isEmpty()) {
+                break;
+            }
+
+            Cell cell = emptyCells.remove(RANDOM.nextInt(emptyCells.size()));
+
+            Sprite sprite = spriteStore.getSprite("goblin.png");
+            Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
             spawnMovable(enemy);
