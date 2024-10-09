@@ -51,8 +51,9 @@ public class Bomb extends AbstractMovable {
             other.explode();
         } else if (other instanceof Enemy) {
             other.hitEnemy();
+
         } else if (other instanceof Player) {
-            other.hitPlayer();
+           // other.hitPlayer();
         }
     }
 
@@ -71,7 +72,7 @@ public class Bomb extends AbstractMovable {
     public void hitEnemy() {
 
     }
-
+/*
     @Override
     public boolean move(long timeDelta) {
         long currentTime = System.currentTimeMillis();
@@ -100,4 +101,6 @@ public class Bomb extends AbstractMovable {
             cell.replaceBy(new Cell(new EmptySprite()));
         }
     }
+    */
+
 }
