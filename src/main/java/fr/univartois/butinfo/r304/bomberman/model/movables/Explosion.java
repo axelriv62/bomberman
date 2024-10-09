@@ -60,6 +60,7 @@ public class Explosion extends AbstractMovable {
     public void setX(int xPosition) {
         this.xProperty.set(xPosition);
     }
+    
 
     @Override
     public int getX() {

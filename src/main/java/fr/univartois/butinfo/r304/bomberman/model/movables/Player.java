@@ -30,9 +30,8 @@ public class Player extends AbstractMovable{
         super(game, xPosition, yPosition, sprite);
     }
 
-
-    public int getScore() {
-        return score.get();
+    public IntegerProperty getScore() {
+        return score;
     }
 
     public IntegerProperty scoreProperty() {
@@ -43,8 +42,8 @@ public class Player extends AbstractMovable{
         this.score.set(score);
     }
 
-    public int getLife() {
-        return life.get();
+    public IntegerProperty getLife() {
+        return life;
     }
 
     public IntegerProperty lifeProperty() {
