@@ -279,3 +279,14 @@ class Sprite {
 | Représentation des bombes et explosion     |            |                                               |
 | Intégration des bombes dans la partie      |            |                                               |
 | Création de la carte du jeu                |            |                                               |
+
+### TP n°4
+
+| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)                                     |
+| ------------------------------------------- | ---------------------------- | ---------- | --------------------------------------------- |
+| Variantes de déplacement des ennemis        |                              |            |                                               |
+| Gestion des points de vie (ennemis, joueur) |                              |            |                                               |
+| Invulnérabilité du joueur                   |                              |            |                                               |
+| Solidité des murs                           |                              |            |                                               |
+| Variantes de génération pour la carte       |                              |            |                                               |
+| Différents types de bombes                  |                              |            |                                               |
