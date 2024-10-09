@@ -309,7 +309,7 @@ class Sprite {
 | Variantes de déplacement des ennemis        | Strategie                    |            | Quentin       |
 | Gestion des points de vie (ennemis, joueur) |                              |            | Bylel/Quentin |
 | Invulnérabilité du joueur                   |                              |            | Bylel         |
-| Solidité des murs                           |                              |            | Axem          |
+| Solidité des murs                           |                              |            | Axel          |
 | Variantes de génération pour la carte       |                              |            | Axel          |
 | Différents types de bombes                  |                              |            | Isaac         |
 
