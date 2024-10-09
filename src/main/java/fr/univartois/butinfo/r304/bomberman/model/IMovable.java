@@ -19,6 +19,7 @@ package fr.univartois.butinfo.r304.bomberman.model;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
 /**
@@ -170,6 +171,7 @@ public interface IMovable {
      *         bloqué.
      */
     boolean move(long timeDelta);
+
 
     /**
      * Vérifie si cet objet est entré en collision avec une autre instance de

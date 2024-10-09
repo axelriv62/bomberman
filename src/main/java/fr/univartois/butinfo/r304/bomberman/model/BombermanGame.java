@@ -17,6 +17,8 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -215,10 +217,13 @@ public final class BombermanGame {
      */
     private void initStatistics() {
         // TODO Lier les propriétés du joueur avec celles du contrôleur.
-        controller.bindLife(null);
-        controller.bindScore(null);
-        controller.bindBombs(null);
-        remainingEnemies = nbEnemies;
+        if (player instanceof Player) {
+            Player playerInstance = (Player) player;
+            controller.bindLife(playerInstance.getLife());
+            controller.bindScore(playerInstance.getScore());
+            controller.bindBombs(bombs.getBombs());
+            remainingEnemies = nbEnemies;
+        }
     }
 
     /**
@@ -367,6 +372,11 @@ public final class BombermanGame {
     public void enemyIsDead(IMovable enemy) {
         // TODO Mettez à jour le score du joueur.
         remainingEnemies--;
+        //Augmenter le score de 1 
+        if (player instanceof Player) {
+            Player player = (Player) this.player;
+            player.addScore();
+        }
         removeMovable(enemy);
 
         if (remainingEnemies == 0) {
