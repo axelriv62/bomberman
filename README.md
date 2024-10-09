@@ -304,14 +304,14 @@ class Sprite {
 
 ### TP n°4
 
-| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)       |
-| ------------------------------------------- | ---------------------------- | ---------- | --------------- |
-| Variantes de déplacement des ennemis        |                              |            |                 |
-| Gestion des points de vie (ennemis, joueur) |                              |            |                 |
-| Invulnérabilité du joueur                   |                              |            |                 |
-| Solidité des murs                           |                              |            |                 |
-| Variantes de génération pour la carte       |                              |            |                 |
-| Différents types de bombes                  |                              |            |                 |
+| Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)     |
+| ------------------------------------------- |------------------------------| ---------- |---------------|
+| Variantes de déplacement des ennemis        | Strategie                    |            | Quentin       |
+| Gestion des points de vie (ennemis, joueur) |                              |            | Bylel/Quentin |
+| Invulnérabilité du joueur                   |                              |            | Bylel         |
+| Solidité des murs                           |                              |            | Axel          |
+| Variantes de génération pour la carte       |                              |            | Axel          |
+| Différents types de bombes                  |                              |            | Isaac         |
 
 
 
