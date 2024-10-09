@@ -201,9 +201,16 @@ public final class BombermanGame {
         }
 
         // On crée ensuite les ennemis sur la carte.
+        List<Cell> emptyCells = gameMap.getEmptyCells();
         for (int i = 0; i < nbEnemies; i++) {
+            if (emptyCells.isEmpty()) {
+                break;
+            }
+
+            Cell cell = emptyCells.remove(RANDOM.nextInt(emptyCells.size()));
+
             Sprite sprite = spriteStore.getSprite("goblin.png");
-            Enemy enemy = new Enemy(this, 0, 0, sprite);
+            Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
             spawnMovable(enemy);
