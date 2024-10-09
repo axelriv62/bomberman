@@ -292,13 +292,13 @@ class Sprite {
 
 | Fonctionnalité                             | Terminée ? | Auteur(s)                                     |
 | ------------------------------------------ | ---------- | --------------------------------------------- |
-| Représentation des ennemis                 |            |                                               |
-| Intégration des ennemis dans la partie     |            |                                               |
-| Représentation du joueur                   |            |                                               |
-| Intégration du joueur dans la partie       |            |                                               |
-| Représentation des bombes et explosion     |            |                                               |
-| Intégration des bombes dans la partie      |            |                                               |
-| Création de la carte du jeu                |            |                                               |
+| Représentation des ennemis                 |    OUI     |   QUENTIN TRIPOGNIEZ                          |
+| Intégration des ennemis dans la partie     |    OUI     |   QUENTIN TRIPOGNIEZ                          |
+| Représentation du joueur                   |    OUI     |   BYLEL BOURHIM                               |
+| Intégration du joueur dans la partie       |    OUI     |   BYLEL BOURHIM                               |
+| Représentation des bombes et explosion     |    OUI/NON |   ISAAC DUFLOS                                |
+| Intégration des bombes dans la partie      |    NON     |   ISAAC DUFLOS                                |
+| Création de la carte du jeu                |    OUI     |   AXEL RIVIÈRE                                |
 
 
 
