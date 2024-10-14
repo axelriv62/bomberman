@@ -78,7 +78,6 @@ public class Player extends AbstractMovable{
     public void removeBomb(Bomb bomb) {
         bombs.remove(bomb);
     }
-
     // Vérifier si le joueur peut poser une bombe (si la liste n'est pas vide)
     public boolean canDropBomb() {
         return !bombs.isEmpty();
