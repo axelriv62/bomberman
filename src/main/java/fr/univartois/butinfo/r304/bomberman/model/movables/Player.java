@@ -85,7 +85,7 @@ public class Player extends AbstractMovable{
     // Méthode pour déposer une bombe
     public Bomb dropBomb() {
         if (canDropBomb()) {
-            Bomb bomb = bombs.remove(0); // Retirer la première bombe de la liste
+            Bomb bomb = bombs.removeFirst(); // Retirer la première bombe de la liste
             bomb.replaceCell(getX(), getY()); // Placer la bombe à la position du joueur
             return bomb;
         }

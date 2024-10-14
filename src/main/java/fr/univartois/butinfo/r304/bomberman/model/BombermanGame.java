@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
@@ -202,7 +203,7 @@ public final class BombermanGame {
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            // TODO Créez une bombe et ajoutez-la au joueur.
+            new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"));
         }
 
         // On crée ensuite les ennemis sur la carte.
@@ -296,8 +297,9 @@ public final class BombermanGame {
      * cette bombe.
      */
     public void dropBomb() {
-        // TODO Retirer une bombe au joueur (s'il lui en reste).
-        // TODO Utilisez ensuite la méthode dropBomb(Bomb) pour la déposer.
+        Player playerInstance = (Player) player;
+        Bomb bomb = playerInstance.dropBomb();
+        dropBomb(bomb);
     }
 
     /**
@@ -309,6 +311,9 @@ public final class BombermanGame {
     public void dropBomb(IMovable bomb) {
         // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
         // TODO Déposez ensuite la bombe à la position du joueur.
+        Bomb bombInstance = (Bomb) bomb;
+        bombInstance.replaceCell(player.getX(), player.getY());
+        gameMap.setAt(player.getY() / spriteStore.getSpriteSize(), player.getX() / spriteStore.getSpriteSize(), new Cell(spriteStore.getSprite("bomb")));
     }
 
     /**

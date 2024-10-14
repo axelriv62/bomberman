@@ -96,7 +96,7 @@ public class Bomb extends AbstractMovable {
         }
     }
 
-    void replaceCell(int x, int y) {
+    public void replaceCell(int x, int y) {
         Cell currentCell = game.getCellAt(x, y);
         if (currentCell != null && !isWall(x, y)) {
             SpriteStore spriteStore = new SpriteStore();
