@@ -139,8 +139,7 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public boolean move(long timeDelta) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - creationTime > DISPLAY_DURATION) {
+        if (System.currentTimeMillis() - creationTime > DISPLAY_DURATION) {
             game.removeMovable(this);
             return false;
         }
@@ -158,6 +157,7 @@ public class Explosion extends AbstractMovable {
         if (other instanceof Explosion || isEnemy(other)) {
             // Ne rien faire
         } else {
+            //TODO OBJET QUELCONQUE
             other.explode();
         }
     }
@@ -178,8 +178,4 @@ public class Explosion extends AbstractMovable {
         // Implémentez la logique de collision avec un ennemi
     }
 
-    @Override
-    public IMovable self() {
-        return this;
-    }
 }
