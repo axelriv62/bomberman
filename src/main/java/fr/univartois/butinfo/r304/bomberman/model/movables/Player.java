@@ -31,7 +31,7 @@ public class Player extends AbstractMovable{
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
@@ -86,10 +86,13 @@ public class Player extends AbstractMovable{
     public Bomb dropBomb() {
         if (canDropBomb()) {
             Bomb bomb = bombs.remove(0); // Retirer la première bombe de la liste
-            bomb.setPosition(getX(), getY()); // Placer la bombe à la position du joueur
+            bomb.replaceCell(getX(), getY()); // Placer la bombe à la position du joueur
             return bomb;
         }
-        return null; // Si pas de bombe disponible
+        // Si pas de bombe disponible
+        else{
+            return null;
+        }
     }
 
 

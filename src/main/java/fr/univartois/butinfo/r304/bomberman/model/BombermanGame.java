@@ -193,7 +193,7 @@ public final class BombermanGame {
         clearAllMovables();
 
         // TODO On crée le joueur sur la carte.
-        player = null;
+        player = new Player(this, 0, 0, spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
 
