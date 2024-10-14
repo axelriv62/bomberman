@@ -3,8 +3,8 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -39,7 +39,7 @@ public class Bomb extends AbstractMovable {
      */
     public Bomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        this.creationTime = System.currentTimeMillis();
+        this.creationTime = stockPosition();
         this.xProperty.set(xPosition);
         this.yProperty.set(yPosition);
         this.spriteProperty.set(sprite);
@@ -47,18 +47,13 @@ public class Bomb extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Bomb) {
+        if (other instanceof Explosion) {
             other.explode();
-        } else if (other instanceof Enemy) {
-            other.hitEnemy();
-
-        } else if (other instanceof Player) {
-           // other.hitPlayer();
         }
     }
 
-    public void stockPosition() {
-
+    public long stockPosition() {
+        return System.currentTimeMillis();
     }
 
     @Override
@@ -72,11 +67,12 @@ public class Bomb extends AbstractMovable {
     public void hitEnemy() {
 
     }
-/*
+
     @Override
     public boolean move(long timeDelta) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - creationTime > DISPLAY_DURATION) {
+            explode();
             replaceAdjacentCells();
             game.removeMovable(this);
             return false;
@@ -87,20 +83,32 @@ public class Bomb extends AbstractMovable {
     private void replaceAdjacentCells() {
         int x = getX();
         int y = getY();
-        GameMap map = game.getMap();
+        int i = 1; // Valeurs changeables pour différents types de bombes
+        int j = 1;
 
-        replaceCell(map, x - 1, y);
-        replaceCell(map, x + 1, y);
-        replaceCell(map, x, y - 1);
-        replaceCell(map, x, y + 1);
-    }
 
-    private void replaceCell(GameMap map, int x, int y) {
-        if (map.isOnMap(x, y)) {
-            Cell cell = map.getAt(x, y);
-            cell.replaceBy(new Cell(new EmptySprite()));
+        int[][] directions = {
+                {0, 0}, {-i, 0}, {i, 0}, {0, -j}, {0, j}
+        };
+
+        for (int[] dir : directions) {
+            replaceCell(x + dir[0], y + dir[1]);
         }
     }
-    */
+
+    private void replaceCell(int x, int y) {
+        Cell currentCell = game.getCellAt(x, y);
+        if (currentCell != null && !isWall(x, y)) {
+            SpriteStore spriteStore = new SpriteStore();
+            Sprite grassSprite = spriteStore.getSprite("lawn");
+            Cell newCell = new Cell(grassSprite);
+            currentCell.replaceBy(newCell);
+        }
+    }
+
+    private boolean isWall(int x, int y) {
+        Cell cell = game.getCellAt(x, y);
+        return cell != null && cell.getWall() != null;
+    }
 
 }
