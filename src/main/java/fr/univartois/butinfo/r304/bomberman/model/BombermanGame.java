@@ -16,6 +16,7 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.CurrentMoveStrategy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
@@ -217,6 +218,7 @@ public final class BombermanGame {
             Sprite sprite = spriteStore.getSprite("goblin");
             Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
+            enemy.setIMoveStrategy(new CurrentMoveStrategy());
             movableObjects.add(enemy);
             spawnMovable(enemy);
         }
@@ -307,7 +309,7 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(IMovable bomb) {
-        // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
+        // TODO Adaptez le type de bomb pour correspondre à votre implémentation.
         // TODO Déposez ensuite la bombe à la position du joueur.
     }
 
