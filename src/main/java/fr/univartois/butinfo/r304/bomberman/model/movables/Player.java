@@ -1,10 +1,15 @@
 package fr.univartois.butinfo.r304.bomberman.model.movables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Player extends AbstractMovable{
 
@@ -26,13 +31,12 @@ public class Player extends AbstractMovable{
      * @param yPosition La position en y initiale de l'objet.
      * @param sprite    L'instance de {@link Sprite} représentant l'objet.
      */
-    protected Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
+    public Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
     }
 
-
-    public int getScore() {
-        return score.get();
+    public IntegerProperty getScore() {
+        return score;
     }
 
     public IntegerProperty scoreProperty() {
@@ -43,8 +47,8 @@ public class Player extends AbstractMovable{
         this.score.set(score);
     }
 
-    public int getLife() {
-        return life.get();
+    public IntegerProperty getLife() {
+        return life;
     }
 
     public IntegerProperty lifeProperty() {
@@ -54,6 +58,44 @@ public class Player extends AbstractMovable{
     public void setLife(int life) {
         this.life.set(life);
     }
+
+    /////////////////BOMBES////////////////////
+        // Liste des bombes possédées par le joueur
+    private List<Bomb> bombs = FXCollections.observableArrayList();
+
+    // Méthode pour accéder à la liste des bombes
+    public List<Bomb> getBombs() {
+        return bombs;
+    }
+
+    // Méthode pour ajouter une bombe
+    public void addBomb(Bomb bomb) {
+        bombs.add(bomb);
+    }
+
+    // Méthode pour retirer une bombe
+    public void removeBomb(Bomb bomb) {
+        bombs.remove(bomb);
+    }
+    // Vérifier si le joueur peut poser une bombe (si la liste n'est pas vide)
+    public boolean canDropBomb() {
+        return !bombs.isEmpty();
+    }
+
+    // Méthode pour déposer une bombe
+    public Bomb dropBomb() {
+        if (canDropBomb()) {
+            Bomb bomb = bombs.remove(0); // Retirer la première bombe de la liste
+            bomb.replaceCell(getX(), getY()); // Placer la bombe à la position du joueur
+            return bomb;
+        }
+        // Si pas de bombe disponible
+        else{
+            return null;
+        }
+    }
+
+
 
 
     /**

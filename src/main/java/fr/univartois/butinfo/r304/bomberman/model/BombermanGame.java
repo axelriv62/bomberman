@@ -17,6 +17,8 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -191,9 +193,12 @@ public final class BombermanGame {
         clearAllMovables();
 
         // TODO On crée le joueur sur la carte.
-        player = null;
+        player = new Player(this, gameMap.getEmptyCells().getFirst().getColumn(), gameMap.getEmptyCells().getFirst().getHeight(), spriteStore.getSprite("guy"));
         movableObjects.add(player);
         spawnMovable(player);
+
+        gameMap.setAt(player.getY() / spriteStore.getSpriteSize() -1, player.getX() / spriteStore.getSpriteSize(), new Cell(spriteStore.getSprite("lawn")));
+        gameMap.setAt(player.getY() / spriteStore.getSpriteSize() +1, player.getX() / spriteStore.getSpriteSize(), new Cell(spriteStore.getSprite("lawn")));
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
@@ -209,7 +214,7 @@ public final class BombermanGame {
 
             Cell cell = emptyCells.remove(RANDOM.nextInt(emptyCells.size()));
 
-            Sprite sprite = spriteStore.getSprite("goblin.png");
+            Sprite sprite = spriteStore.getSprite("goblin");
             Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
             movableObjects.add(enemy);
@@ -222,10 +227,13 @@ public final class BombermanGame {
      */
     private void initStatistics() {
         // TODO Lier les propriétés du joueur avec celles du contrôleur.
-        controller.bindLife(null);
-        controller.bindScore(null);
-        controller.bindBombs(null);
-        remainingEnemies = nbEnemies;
+        if (player instanceof Player) {
+            Player playerInstance = (Player) player;
+            controller.bindLife(playerInstance.getLife());
+            controller.bindScore(playerInstance.getScore());
+            controller.bindBombs(playerInstance.getBombs());
+            remainingEnemies = nbEnemies;
+        }
     }
 
     /**
@@ -374,6 +382,11 @@ public final class BombermanGame {
     public void enemyIsDead(IMovable enemy) {
         // TODO Mettez à jour le score du joueur.
         remainingEnemies--;
+        //Augmenter le score de 1 
+        if (player instanceof Player) {
+            Player player = (Player) this.player;
+            player.addScore();
+        }
         removeMovable(enemy);
 
         if (remainingEnemies == 0) {
