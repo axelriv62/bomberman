@@ -228,7 +228,7 @@ public final class BombermanGame {
             Player playerInstance = (Player) player;
             controller.bindLife(playerInstance.getLife());
             controller.bindScore(playerInstance.getScore());
-            controller.bindBombs(bombs.getBombs());
+            controller.bindBombs(playerInstance.getBombs());
             remainingEnemies = nbEnemies;
         }
     }
