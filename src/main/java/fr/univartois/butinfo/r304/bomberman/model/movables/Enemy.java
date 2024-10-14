@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Enemy extends AbstractMovable{
   private Random random = new Random();
-
+  private IMoveStrategy iMoveStrategy;
   /**
    * Crée une nouvelle instance de AbstractMovable.
    *
@@ -21,12 +21,21 @@ public class Enemy extends AbstractMovable{
     super(game, xPosition, yPosition, sprite);
   }
 
+  @Override
   public int getX() {
     return (int) xPosition.get();
   }
-
+  @Override
   public int getY() {
     return (int) yPosition.get();
+  }
+
+  public void setIMoveStrategy(IMoveStrategy iMoveStrategy) {
+    this.iMoveStrategy = iMoveStrategy;
+  }
+
+  public IMoveStrategy getIMoveStrategy() {
+    return iMoveStrategy;
   }
 
   @Override
@@ -46,16 +55,16 @@ public class Enemy extends AbstractMovable{
 
   @Override
   public void hitEnemy() {
-
+    //TODO : implement
   }
 
   @Override
   public boolean move(long delta) {
-
-    setHorizontalSpeed((random.nextDouble() * 2 - 1) * 100);
-    setVerticalSpeed((random.nextDouble() * 2 - 1) * 100);
-
-    return super.move(delta);
+    if (iMoveStrategy != null) {
+      iMoveStrategy.move(this);
+      return super.move(delta);
+    }
+    return false;
   }
 
 
