@@ -29,6 +29,8 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
  */
 public final class Wall {
 
+    private IBrick brick;
+
     /**
      * Le sprite représentant ce mur sur la carte.
      */
@@ -41,6 +43,7 @@ public final class Wall {
      */
     public Wall(Sprite sprite) {
         this.sprite = sprite;
+        brick = new FullBrick();
     }
 
     /**
@@ -50,6 +53,10 @@ public final class Wall {
      */
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void handle() {
+        brick.handle();
     }
 
 }

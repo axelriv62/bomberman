@@ -203,7 +203,8 @@ public final class BombermanGame {
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            new Bomb(this, player.getX(), player.getY(), spriteStore.getSprite("bomb"));
+            Bomb bomb = new Bomb (this, player.getX(), player.getY(), spriteStore.getSprite("bomb"));
+            ((Player) player).addBomb(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
@@ -310,10 +311,10 @@ public final class BombermanGame {
      */
     public void dropBomb(IMovable bomb) {
         // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
-        // TODO Déposez ensuite la bombe à la position du joueur.
+        // TODO Déposez ensuite la bombe Bomb bombInstance = (Bomb) bomb à la position du joueur.
         Bomb bombInstance = (Bomb) bomb;
         bombInstance.replaceCell(player.getX(), player.getY());
-        gameMap.setAt(player.getY() / spriteStore.getSpriteSize(), player.getX() / spriteStore.getSpriteSize(), new Cell(spriteStore.getSprite("bomb")));
+        addMovable(bombInstance);
     }
 
     /**
