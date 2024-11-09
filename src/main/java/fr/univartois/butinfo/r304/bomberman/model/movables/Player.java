@@ -6,7 +6,9 @@ import java.util.List;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +35,7 @@ public class Player extends AbstractMovable{
      */
     public Player(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
+        this.bombs = FXCollections.observableArrayList();
     }
 
     public IntegerProperty getScore() {
@@ -61,7 +64,7 @@ public class Player extends AbstractMovable{
 
     /////////////////BOMBES////////////////////
         // Liste des bombes possédées par le joueur
-    private List<Bomb> bombs = FXCollections.observableArrayList();
+    private List<Bomb> bombs;
 
     // Méthode pour accéder à la liste des bombes
     public List<Bomb> getBombs() {
@@ -71,12 +74,19 @@ public class Player extends AbstractMovable{
     // Méthode pour ajouter une bombe
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
+        System.out.println("Bombe ajoutée à l'inventaire. Total : " + bombs.size());
     }
 
     // Méthode pour retirer une bombe
     public void removeBomb(Bomb bomb) {
-        bombs.remove(bomb);
+        // bombs.remove(bomb);
+        if (bombs.remove(bomb)) {
+            System.out.println("Bombe retirée de l'inventaire. Total : " + bombs.size());
+        } else {
+            System.out.println("Erreur : Bombe non trouvée dans la liste.");
+        }
     }
+
     // Vérifier si le joueur peut poser une bombe (si la liste n'est pas vide)
     public boolean canDropBomb() {
         return !bombs.isEmpty();
@@ -85,13 +95,16 @@ public class Player extends AbstractMovable{
     // Méthode pour déposer une bombe
     public Bomb dropBomb() {
         if (canDropBomb()) {
-            Bomb bomb = bombs.removeFirst(); // Retirer la première bombe de la liste
-            bomb.setX(getX()); // Positionner la bombe à la position du joueur
-            bomb.setY(getY());
+            Bomb bomb = bombs.get(0); // Retirer la première bombe de la liste
+            System.out.println("Dépose de la bombe : " + bomb.toString() + " Position: (" + this.getX() + ", " + this.getY() + ")");
+            removeBomb(bomb); // Retirer la bombe de la liste
+            bomb.setX(this.getX()); // Positionner la bombe à la position du joueur
+            bomb.setY(this.getY());
+            bomb.reset(); // Reset any other properties of the bomb
             return bomb;
         }
         // Si pas de bombe disponible
-        else{
+        else {
             return null;
         }
     }
@@ -129,4 +142,5 @@ public class Player extends AbstractMovable{
          * Ne rien faire
          */
     }
+
 }
