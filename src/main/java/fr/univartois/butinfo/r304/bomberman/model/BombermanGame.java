@@ -225,6 +225,7 @@ public final class BombermanGame {
             Sprite sprite = spriteStore.getSprite("goblin");
             Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
+            enemy.setIMoveStrategy(new CurrentMoveStrategy());
             movableObjects.add(enemy);
             spawnMovable(enemy);
         }
