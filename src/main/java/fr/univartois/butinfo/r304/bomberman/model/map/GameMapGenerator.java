@@ -3,6 +3,8 @@ package fr.univartois.butinfo.r304.bomberman.model.map;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
+import java.util.Random;
+
 /**
  * La classe {@link GameMapGenerator} gère la génération de la carte du jeu
  */
@@ -15,6 +17,8 @@ public class GameMapGenerator {
     private GameMapGenerator() {
         throw new AssertionError("No GameMapGenerator instances for you!");
     }
+
+    static Random random;
 
     /**
      * Génère une carte de jeu avec la largeur et la hauteur spécifiées.
@@ -29,6 +33,7 @@ public class GameMapGenerator {
 
         Sprite wallSprite = spriteStore.getSprite("wall");
         Sprite lawnSprite = spriteStore.getSprite("lawn");
+        Sprite brickSprite = spriteStore.getSprite("bricks");
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -45,7 +50,18 @@ public class GameMapGenerator {
             }
         }
 
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                random = new Random();
+                if (random.nextInt(10) > 1 && map.getAt(i, j).getSpriteProperty().get() == lawnSprite) {
+                    // Briques aléatoires
+                    map.setAt(i, j, new Cell(new Wall(brickSprite)));
+                }
+            }
+        }
+
         return map;
     }
+
     
 }

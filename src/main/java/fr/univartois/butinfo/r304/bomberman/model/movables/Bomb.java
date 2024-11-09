@@ -58,8 +58,10 @@ public class Bomb extends AbstractMovable {
 
     @Override
     public void explode() {
-        Explosion explosion = new Explosion(game, xProperty.get(), yProperty.get(), spriteProperty.get());
+        System.out.println("Explosion de la bombe : " + this);
+        Explosion explosion = new Explosion(game, getX(), getY(), game.getSpriteStore().getSprite("explosion"));
         game.addMovable(explosion);
+        game.removeMovable(this);
     }
 
 
@@ -74,7 +76,6 @@ public class Bomb extends AbstractMovable {
         if (currentTime - creationTime > DISPLAY_DURATION) {
             explode();
             replaceAdjacentCells();
-            game.removeMovable(this);
             return false;
         }
         return true;
@@ -96,7 +97,7 @@ public class Bomb extends AbstractMovable {
         }
     }
 
-    void replaceCell(int x, int y) {
+    public void replaceCell(int x, int y) {
         Cell currentCell = game.getCellAt(x, y);
         if (currentCell != null && !isWall(x, y)) {
             SpriteStore spriteStore = new SpriteStore();
@@ -109,6 +110,11 @@ public class Bomb extends AbstractMovable {
     private boolean isWall(int x, int y) {
         Cell cell = game.getCellAt(x, y);
         return cell != null && cell.getWall() != null;
+    }
+
+    public void reset() {
+        this.creationTime = System.currentTimeMillis();
+        this.consumed.set(false);
     }
 
 }

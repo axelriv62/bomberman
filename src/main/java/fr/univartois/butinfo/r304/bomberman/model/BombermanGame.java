@@ -16,12 +16,14 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import fr.univartois.butinfo.r304.bomberman.model.movables.CurrentMoveStrategy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
@@ -80,6 +82,10 @@ public final class BombermanGame {
      */
     // TODO Adaptez le type de cet attribut pour correspondre à votre implémentation.
     private IMovable player;
+
+    public IMovable getPlayer() {
+        return player;
+    }
 
     /**
      * Le nombre d'ennemis initialement dans le jeu.
@@ -203,7 +209,8 @@ public final class BombermanGame {
 
         // On ajoute les bombes initiales du joueur.
         for (int i = 0; i < DEFAULT_BOMBS; i++) {
-            // TODO Créez une bombe et ajoutez-la au joueur.
+            Bomb bomb = new Bomb(this, 0, 0, spriteStore.getSprite("bomb"));
+            ((Player) player).addBomb(bomb);
         }
 
         // On crée ensuite les ennemis sur la carte.
@@ -298,8 +305,13 @@ public final class BombermanGame {
      * cette bombe.
      */
     public void dropBomb() {
-        // TODO Retirer une bombe au joueur (s'il lui en reste).
-        // TODO Utilisez ensuite la méthode dropBomb(Bomb) pour la déposer.
+        Player playerInstance = (Player) player;
+        Bomb bomb = playerInstance.dropBomb();
+        if (bomb != null) {
+            bomb.setX(player.getX());
+            bomb.setY(player.getY());
+            dropBomb(bomb);
+        }
     }
 
     /**
@@ -309,8 +321,11 @@ public final class BombermanGame {
      * @param bomb La bombe à déposer.
      */
     public void dropBomb(IMovable bomb) {
-        // TODO Adaptez le type de bomb pour correspondre à votre implémentation.
-        // TODO Déposez ensuite la bombe à la position du joueur.
+        // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
+        // TODO Déposez ensuite la bombe Bomb bombInstance = (Bomb) bomb à la position du joueur.
+        Bomb bombInstance = (Bomb) bomb;
+        System.out.println("Ajout de la bombe à la carte : " + bombInstance.toString() + " à la position (" + bombInstance.getX() + ", " + bombInstance.getY() + ")");
+        addMovable(bombInstance);
     }
 
     /**
@@ -351,6 +366,7 @@ public final class BombermanGame {
      * @param object L'objet à ajouter.
      */
     public void addMovable(IMovable object) {
+        System.out.println("Ajout du sprite pour : " + object.toString());
         movableObjects.add(object);
         controller.addMovable(object);
     }
@@ -361,6 +377,7 @@ public final class BombermanGame {
      * @param object L'objet à supprimer.
      */
     public void removeMovable(IMovable object) {
+        System.out.println("Retrait du sprite pour : " + object.toString());
         movableObjects.remove(object);
         object.consume();
     }

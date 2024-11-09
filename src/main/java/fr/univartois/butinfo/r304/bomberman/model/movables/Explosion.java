@@ -2,6 +2,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -40,10 +41,10 @@ public class Explosion extends AbstractMovable {
      */
     protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        this.creationTime = System.currentTimeMillis();
         this.xProperty.set(xPosition);
         this.yProperty.set(yPosition);
         this.spriteProperty.set(sprite);
+        this.creationTime = System.currentTimeMillis();
     }
 
     @Override
@@ -60,7 +61,6 @@ public class Explosion extends AbstractMovable {
     public void setX(int xPosition) {
         this.xProperty.set(xPosition);
     }
-    
 
     @Override
     public int getX() {
