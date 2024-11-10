@@ -19,8 +19,10 @@ package fr.univartois.butinfo.r304.bomberman.model;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.CurrentMoveStrategy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
+import fr.univartois.butinfo.r304.bomberman.model.movables.HealthDecorator;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
+import fr.univartois.butinfo.r304.bomberman.model.movables.TimedMoveStrategy;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -224,9 +226,14 @@ public final class BombermanGame {
             Cell cell = emptyCells.remove(RANDOM.nextInt(emptyCells.size()));
 
             Sprite sprite = spriteStore.getSprite("goblin");
+            if (sprite == null) {
+                throw new IllegalStateException("Sprite for goblin is  found");
+            }
+
             Enemy enemy = new Enemy(this, cell.getColumn() * spriteStore.getSpriteSize(), cell.getRow() * spriteStore.getSpriteSize(), sprite);
             enemy.setHorizontalSpeed(DEFAULT_SPEED);
-            enemy.setIMoveStrategy(new CurrentMoveStrategy());
+            enemy.setIMoveStrategy(new TimedMoveStrategy());
+
             movableObjects.add(enemy);
             spawnMovable(enemy);
         }
