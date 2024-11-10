@@ -39,10 +39,10 @@ public class GameMapGenerator {
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     // Contours de murs
-                    map.setAt(i, j, new Cell(new Wall(wallSprite)));
+                    map.setAt(i, j, new Cell(new Wall(wallSprite, false)));
                 } else if ((i % 3 == 0 || i % 3 == 2) && (j % 3 == 0 || j % 3 == 2)) {
                     // Blocs de murs de 2x2 cellules
-                    map.setAt(i, j, new Cell(new Wall(wallSprite)));
+                    map.setAt(i, j, new Cell(new Wall(wallSprite, false)));
                 } else {
                     // Cellules de pelouse
                     map.setAt(i, j, new Cell(lawnSprite));
@@ -55,7 +55,7 @@ public class GameMapGenerator {
                 random = new Random();
                 if (random.nextInt(10) > 1 && map.getAt(i, j).getSpriteProperty().get() == lawnSprite) {
                     // Briques aléatoires
-                    map.setAt(i, j, new Cell(new Wall(brickSprite)));
+                    map.setAt(i, j, new Cell(new Wall(brickSprite, true)));
                 }
             }
         }

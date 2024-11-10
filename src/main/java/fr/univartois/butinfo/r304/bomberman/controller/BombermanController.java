@@ -25,6 +25,8 @@ import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import javafx.beans.binding.IntegerExpression;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -211,8 +213,10 @@ public final class BombermanController implements IBombermanController {
      * beans.binding.IntegerExpression)
      */
     @Override
-    public void bindBombs(List<Bomb> list) {
-        bombs.textProperty().bind(new SimpleIntegerProperty(list.size()).asString());
+    public void bindBombs(ObservableList<Bomb> list) {
+        SimpleIntegerProperty bombCount = new SimpleIntegerProperty(list.size());
+        list.addListener((ListChangeListener<Bomb>) change -> bombCount.set(list.size()));
+        bombs.textProperty().bind(bombCount.asString());
     }
 
     /*

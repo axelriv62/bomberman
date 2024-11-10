@@ -3,6 +3,7 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -170,12 +171,48 @@ public class Explosion extends AbstractMovable {
     public void explode() {
         //TODO
         // Implémentez la logique d'explosion
+        int x = getX();
+        int y = getY();
+        replaceAdjacentCells(x, y);
     }
 
     @Override
     public void hitEnemy() {
         //TODO
         // Implémentez la logique de collision avec un ennemi
+    }
+
+    void replaceAdjacentCells(int x, int y) {
+        int i = 1;
+        int j = 1;
+
+        int[][] directions = {
+                {0, 0}, {-i, 0}, {i, 0}, {0, -j}, {0, j}
+        };
+
+        for (int[] dir : directions) {
+            replaceCell(x + dir[0], y + dir[1]);
+        }
+    }
+
+    private void replaceCell(int x, int y) {
+        Cell currentCell = game.getCellAt(x, y);
+        if (currentCell != null && isWall(x, y) && currentCell.getWall().isDestructible()) {
+            Wall wall = currentCell.getWall();
+            wall.handle(); // passer à l'état suivant de la brique
+            currentCell.replaceBy(new Cell(wall.getSprite()));
+            if (wall.getBrick() == null) {
+                currentCell.getWallProperty().set(null);
+            } else {
+                currentCell.getWallProperty().set(wall);
+            }
+        }
+    }
+
+
+    private boolean isWall(int x, int y) {
+        Cell cell = game.getCellAt(x, y);
+        return cell != null && cell.getWall() != null;
     }
 
 }

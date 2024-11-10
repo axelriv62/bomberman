@@ -58,10 +58,10 @@ public class Bomb extends AbstractMovable {
 
     @Override
     public void explode() {
-        System.out.println("Explosion de la bombe : " + this);
         Explosion explosion = new Explosion(game, getX(), getY(), game.getSpriteStore().getSprite("explosion"));
         game.addMovable(explosion);
         game.removeMovable(this);
+        explosion.replaceAdjacentCells(getX(), getY());
     }
 
 
@@ -75,41 +75,9 @@ public class Bomb extends AbstractMovable {
         long currentTime = System.currentTimeMillis();
         if (currentTime - creationTime > DISPLAY_DURATION) {
             explode();
-            replaceAdjacentCells();
             return false;
         }
         return true;
-    }
-
-    private void replaceAdjacentCells() {
-        int x = getX();
-        int y = getY();
-        int i = 1; // Valeurs changeables pour différents types de bombes
-        int j = 1;
-
-
-        int[][] directions = {
-                {0, 0}, {-i, 0}, {i, 0}, {0, -j}, {0, j}
-        };
-
-        for (int[] dir : directions) {
-            replaceCell(x + dir[0], y + dir[1]);
-        }
-    }
-
-    public void replaceCell(int x, int y) {
-        Cell currentCell = game.getCellAt(x, y);
-        if (currentCell != null && !isWall(x, y)) {
-            SpriteStore spriteStore = new SpriteStore();
-            Sprite grassSprite = spriteStore.getSprite("lawn");
-            Cell newCell = new Cell(grassSprite);
-            currentCell.replaceBy(newCell);
-        }
-    }
-
-    private boolean isWall(int x, int y) {
-        Cell cell = game.getCellAt(x, y);
-        return cell != null && cell.getWall() != null;
     }
 
     public void reset() {

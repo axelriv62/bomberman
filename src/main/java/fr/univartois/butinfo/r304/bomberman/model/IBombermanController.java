@@ -16,11 +16,10 @@
 
 package fr.univartois.butinfo.r304.bomberman.model;
 
-import java.util.List;
-
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import javafx.beans.binding.IntegerExpression;
+import javafx.collections.ObservableList;
 
 /**
  * L'interface {@link IBombermanController} définit le contrat qui doit être respecté par
@@ -58,7 +57,7 @@ public interface IBombermanController {
      *
      * @param list La propriété stockant le nombre de bombes.
      */
-    void bindBombs(List<Bomb> list);
+    void bindBombs(ObservableList<Bomb> list);
 
     /**
      * Lie la vie du joueur à son affichage dans la vue.

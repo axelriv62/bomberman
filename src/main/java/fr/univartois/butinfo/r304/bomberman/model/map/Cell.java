@@ -174,4 +174,7 @@ public final class Cell {
         wallProperty.set(cell.getWall());
     }
 
+    public boolean isWall() {
+        return wallProperty.get() != null;
+    }
 }

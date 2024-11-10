@@ -305,8 +305,8 @@ class Sprite {
 ### TP n°4
 
 | Fonctionnalité                              | Patron de conception utilisé | Terminée ? | Auteur(s)     |
-| ------------------------------------------- |------------------------------| ---------- |---------------|
-| Variantes de déplacement des ennemis        | Strategie                    |            | Quentin       |
+| ------------------------------------------- |------------------------------|------------|---------------|
+| Variantes de déplacement des ennemis        | Strategie                    | Oui        | Quentin       |
 | Gestion des points de vie (ennemis, joueur) |                              |            | Bylel/Quentin |
 | Invulnérabilité du joueur                   |                              |            | Bylel         |
 | Solidité des murs                           |                              |            | Axel          |
