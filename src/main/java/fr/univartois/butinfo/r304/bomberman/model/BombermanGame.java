@@ -17,6 +17,7 @@
 package fr.univartois.butinfo.r304.bomberman.model;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
+import fr.univartois.butinfo.r304.bomberman.model.movables.CurrentMoveStrategy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
@@ -324,7 +325,6 @@ public final class BombermanGame {
         // TODO Adapteez le type de bomb pour correspondre à votre implémentation.
         // TODO Déposez ensuite la bombe Bomb bombInstance = (Bomb) bomb à la position du joueur.
         Bomb bombInstance = (Bomb) bomb;
-        System.out.println("Ajout de la bombe à la carte : " + bombInstance.toString() + " à la position (" + bombInstance.getX() + ", " + bombInstance.getY() + ")");
         addMovable(bombInstance);
     }
 
@@ -366,7 +366,6 @@ public final class BombermanGame {
      * @param object L'objet à ajouter.
      */
     public void addMovable(IMovable object) {
-        System.out.println("Ajout du sprite pour : " + object.toString());
         movableObjects.add(object);
         controller.addMovable(object);
     }
@@ -377,7 +376,6 @@ public final class BombermanGame {
      * @param object L'objet à supprimer.
      */
     public void removeMovable(IMovable object) {
-        System.out.println("Retrait du sprite pour : " + object.toString());
         movableObjects.remove(object);
         object.consume();
     }

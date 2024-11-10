@@ -64,27 +64,21 @@ public class Player extends AbstractMovable{
 
     /////////////////BOMBES////////////////////
         // Liste des bombes possédées par le joueur
-    private List<Bomb> bombs;
+    private ObservableList<Bomb> bombs;
 
     // Méthode pour accéder à la liste des bombes
-    public List<Bomb> getBombs() {
+    public ObservableList<Bomb> getBombs() {
         return bombs;
     }
 
     // Méthode pour ajouter une bombe
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
-        System.out.println("Bombe ajoutée à l'inventaire. Total : " + bombs.size());
     }
 
     // Méthode pour retirer une bombe
     public void removeBomb(Bomb bomb) {
-        // bombs.remove(bomb);
-        if (bombs.remove(bomb)) {
-            System.out.println("Bombe retirée de l'inventaire. Total : " + bombs.size());
-        } else {
-            System.out.println("Erreur : Bombe non trouvée dans la liste.");
-        }
+        bombs.remove(bomb);
     }
 
     // Vérifier si le joueur peut poser une bombe (si la liste n'est pas vide)
@@ -95,12 +89,11 @@ public class Player extends AbstractMovable{
     // Méthode pour déposer une bombe
     public Bomb dropBomb() {
         if (canDropBomb()) {
-            Bomb bomb = bombs.get(0); // Retirer la première bombe de la liste
-            System.out.println("Dépose de la bombe : " + bomb.toString() + " Position: (" + this.getX() + ", " + this.getY() + ")");
+            Bomb bomb = bombs.getFirst(); // Retirer la première bombe de la liste
             removeBomb(bomb); // Retirer la bombe de la liste
             bomb.setX(this.getX()); // Positionner la bombe à la position du joueur
             bomb.setY(this.getY());
-            bomb.reset(); // Reset any other properties of the bomb
+            bomb.reset(); // Renitialiser la bombe
             return bomb;
         }
         // Si pas de bombe disponible
