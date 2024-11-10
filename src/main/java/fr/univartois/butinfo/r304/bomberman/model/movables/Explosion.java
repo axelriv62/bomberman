@@ -169,8 +169,6 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public void explode() {
-        //TODO
-        // Implémentez la logique d'explosion
         int x = getX();
         int y = getY();
         replaceAdjacentCells(x, y);
@@ -183,8 +181,8 @@ public class Explosion extends AbstractMovable {
     }
 
     void replaceAdjacentCells(int x, int y) {
-        int i = 1;
-        int j = 1;
+        int i = 30;
+        int j = 30;
 
         int[][] directions = {
                 {0, 0}, {-i, 0}, {i, 0}, {0, -j}, {0, j}
