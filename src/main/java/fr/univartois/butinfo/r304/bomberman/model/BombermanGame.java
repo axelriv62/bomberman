@@ -19,7 +19,7 @@ package fr.univartois.butinfo.r304.bomberman.model;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import fr.univartois.butinfo.r304.bomberman.model.movables.CurrentMoveStrategy;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Enemy;
-import fr.univartois.butinfo.r304.bomberman.model.movables.HealthDecorator;
+//import fr.univartois.butinfo.r304.bomberman.model.movables.HealthDecorator;
 import fr.univartois.butinfo.r304.bomberman.model.movables.Player;
 
 import fr.univartois.butinfo.r304.bomberman.model.movables.TimedMoveStrategy;
