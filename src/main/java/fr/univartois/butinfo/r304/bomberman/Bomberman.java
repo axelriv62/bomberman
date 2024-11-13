@@ -17,6 +17,7 @@
 package fr.univartois.butinfo.r304.bomberman;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import fr.univartois.butinfo.r304.bomberman.controller.BombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
@@ -25,6 +26,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -58,6 +60,10 @@ public final class Bomberman extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        // Chargement de l'icône de la fenêtre.
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("view/icon.png")));
+        stage.getIcons().add(icon);
+
         // On commence par charger la vue et son contrôleur.
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/bomberman.fxml"));
         Parent viewContent = fxmlLoader.load();
