@@ -21,7 +21,12 @@ import fr.univartois.butinfo.r304.bomberman.model.IBombermanController;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
 import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
+import fr.univartois.butinfo.r304.bomberman.model.movables.Bomb;
 import javafx.beans.binding.IntegerExpression;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -30,6 +35,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * La classe {@link BombermanController} fournit le contrôleur permettant de jouer au jeu
@@ -206,8 +213,10 @@ public final class BombermanController implements IBombermanController {
      * beans.binding.IntegerExpression)
      */
     @Override
-    public void bindBombs(IntegerExpression bombsProperty) {
-        bombs.textProperty().bind(bombsProperty.asString());
+    public void bindBombs(ObservableList<Bomb> list) {
+        SimpleIntegerProperty bombCount = new SimpleIntegerProperty(list.size());
+        list.addListener((ListChangeListener<Bomb>) change -> bombCount.set(list.size()));
+        bombs.textProperty().bind(bombCount.asString());
     }
 
     /*

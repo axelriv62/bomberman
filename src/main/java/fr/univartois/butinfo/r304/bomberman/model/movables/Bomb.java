@@ -3,8 +3,8 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
 import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
-import fr.univartois.butinfo.r304.bomberman.model.map.GameMap;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -39,7 +39,7 @@ public class Bomb extends AbstractMovable {
      */
     public Bomb(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        this.creationTime = System.currentTimeMillis();
+        this.creationTime = stockPosition();
         this.xProperty.set(xPosition);
         this.yProperty.set(yPosition);
         this.spriteProperty.set(sprite);
@@ -47,24 +47,21 @@ public class Bomb extends AbstractMovable {
 
     @Override
     public void collidedWith(IMovable other) {
-        if (other instanceof Bomb) {
+        if (other instanceof Explosion) {
             other.explode();
-        } else if (other instanceof Enemy) {
-            other.hitEnemy();
-
-        } else if (other instanceof Player) {
-           // other.hitPlayer();
         }
     }
 
-    public void stockPosition() {
-
+    public long stockPosition() {
+        return System.currentTimeMillis();
     }
 
     @Override
     public void explode() {
-        Explosion explosion = new Explosion(game, xProperty.get(), yProperty.get(), spriteProperty.get());
+        Explosion explosion = new Explosion(game, getX(), getY(), game.getSpriteStore().getSprite("explosion"));
         game.addMovable(explosion);
+        game.removeMovable(this);
+        explosion.replaceAdjacentCells(getX(), getY());
     }
 
 
@@ -72,35 +69,20 @@ public class Bomb extends AbstractMovable {
     public void hitEnemy() {
 
     }
-/*
+
     @Override
     public boolean move(long timeDelta) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - creationTime > DISPLAY_DURATION) {
-            replaceAdjacentCells();
-            game.removeMovable(this);
+            explode();
             return false;
         }
         return true;
     }
 
-    private void replaceAdjacentCells() {
-        int x = getX();
-        int y = getY();
-        GameMap map = game.getMap();
-
-        replaceCell(map, x - 1, y);
-        replaceCell(map, x + 1, y);
-        replaceCell(map, x, y - 1);
-        replaceCell(map, x, y + 1);
+    public void reset() {
+        this.creationTime = System.currentTimeMillis();
+        this.consumed.set(false);
     }
-
-    private void replaceCell(GameMap map, int x, int y) {
-        if (map.isOnMap(x, y)) {
-            Cell cell = map.getAt(x, y);
-            cell.replaceBy(new Cell(new EmptySprite()));
-        }
-    }
-    */
 
 }

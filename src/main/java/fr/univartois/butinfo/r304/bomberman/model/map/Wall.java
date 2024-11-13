@@ -16,7 +16,10 @@
 
 package fr.univartois.butinfo.r304.bomberman.model.map;
 
+import fr.univartois.butinfo.r304.bomberman.model.map.bricks.FullBrick;
+import fr.univartois.butinfo.r304.bomberman.model.map.bricks.IBrick;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
+import fr.univartois.butinfo.r304.bomberman.view.SpriteStore;
 
 /**
  * La classe {@link Wall} représente un mur de briques sur la carte du jeu.
@@ -29,18 +32,24 @@ import fr.univartois.butinfo.r304.bomberman.view.Sprite;
  */
 public final class Wall {
 
+    private IBrick brick;
+
     /**
      * Le sprite représentant ce mur sur la carte.
      */
     private Sprite sprite;
+
+    boolean isDestructible;
 
     /**
      * Crée une nouvelle instance de Wall.
      *
      * @param sprite Le sprite représentant le mur sur la carte.
      */
-    public Wall(Sprite sprite) {
+    public Wall(Sprite sprite, boolean isDestructible) {
         this.sprite = sprite;
+        this.isDestructible = isDestructible;
+        this.brick = new FullBrick();
     }
 
     /**
@@ -50,6 +59,24 @@ public final class Wall {
      */
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void handle() {
+        brick = brick.nextState();
+        if (brick == null) {
+            SpriteStore store = new SpriteStore();
+            sprite = store.getSprite("lawn");
+        } else {
+            sprite = brick.getSprite();
+        }
+    }
+
+    public IBrick getBrick() {
+        return brick;
+    }
+
+    public boolean isDestructible() {
+        return isDestructible;
     }
 
 }

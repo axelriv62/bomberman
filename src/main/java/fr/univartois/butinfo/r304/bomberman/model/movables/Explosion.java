@@ -2,6 +2,8 @@ package fr.univartois.butinfo.r304.bomberman.model.movables;
 
 import fr.univartois.butinfo.r304.bomberman.model.BombermanGame;
 import fr.univartois.butinfo.r304.bomberman.model.IMovable;
+import fr.univartois.butinfo.r304.bomberman.model.map.Cell;
+import fr.univartois.butinfo.r304.bomberman.model.map.Wall;
 import fr.univartois.butinfo.r304.bomberman.view.Sprite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -40,10 +42,10 @@ public class Explosion extends AbstractMovable {
      */
     protected Explosion(BombermanGame game, double xPosition, double yPosition, Sprite sprite) {
         super(game, xPosition, yPosition, sprite);
-        this.creationTime = System.currentTimeMillis();
         this.xProperty.set(xPosition);
         this.yProperty.set(yPosition);
         this.spriteProperty.set(sprite);
+        this.creationTime = System.currentTimeMillis();
     }
 
     @Override
@@ -138,8 +140,7 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public boolean move(long timeDelta) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - creationTime > DISPLAY_DURATION) {
+        if (System.currentTimeMillis() - creationTime > DISPLAY_DURATION) {
             game.removeMovable(this);
             return false;
         }
@@ -157,6 +158,7 @@ public class Explosion extends AbstractMovable {
         if (other instanceof Explosion || isEnemy(other)) {
             // Ne rien faire
         } else {
+            //TODO OBJET QUELCONQUE
             other.explode();
         }
     }
@@ -167,8 +169,9 @@ public class Explosion extends AbstractMovable {
 
     @Override
     public void explode() {
-        //TODO
-        // Implémentez la logique d'explosion
+        int x = getX();
+        int y = getY();
+        replaceAdjacentCells(x, y);
     }
 
     @Override
@@ -177,8 +180,37 @@ public class Explosion extends AbstractMovable {
         // Implémentez la logique de collision avec un ennemi
     }
 
-    @Override
-    public IMovable self() {
-        return this;
+    void replaceAdjacentCells(int x, int y) {
+        int i = 30;
+        int j = 30;
+
+        int[][] directions = {
+                {0, 0}, {-i, 0}, {i, 0}, {0, -j}, {0, j}
+        };
+
+        for (int[] dir : directions) {
+            replaceCell(x + dir[0], y + dir[1]);
+        }
     }
+
+    private void replaceCell(int x, int y) {
+        Cell currentCell = game.getCellAt(x, y);
+        if (currentCell != null && isWall(x, y) && currentCell.getWall().isDestructible()) {
+            Wall wall = currentCell.getWall();
+            wall.handle(); // passer à l'état suivant de la brique
+            currentCell.replaceBy(new Cell(wall.getSprite()));
+            if (wall.getBrick() == null) {
+                currentCell.getWallProperty().set(null);
+            } else {
+                currentCell.getWallProperty().set(wall);
+            }
+        }
+    }
+
+
+    private boolean isWall(int x, int y) {
+        Cell cell = game.getCellAt(x, y);
+        return cell != null && cell.getWall() != null;
+    }
+
 }
